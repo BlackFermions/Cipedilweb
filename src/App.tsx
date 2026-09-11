@@ -617,7 +617,7 @@ export default function App() {
                   </h2>
                   <span style={{ fontSize: 12.5, color: C.muted }}>Período 2025 – 2027 · Todo el distrito</span>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
                   {DIRECTIVA_CENTRAL.map((m, i) => (
                     <PersonCard key={i} nombre={m.nombre} cargo={m.cargo} iglesia={m.iglesia} />
                   ))}
@@ -839,7 +839,7 @@ export default function App() {
 
           {/* ── STATS STRIP ─────────────────────────────────────── */}
           <section style={{ background: C.navy, padding: '30px 24px' }}>
-            <div style={{ maxWidth: 1000, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 8 }}>
+            <div style={{ maxWidth: 1000, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(64px, 1fr))', gap: 8 }}>
               {[
                 { n: '30+', l: 'Iglesias asociadas' },
                 { n: '50+', l: 'Pastores miembros' },
@@ -856,17 +856,17 @@ export default function App() {
 
           {/* ── QUIÉNES SOMOS ───────────────────────────────────── */}
           <section id="nosotros" style={{ padding: '90px 24px', background: '#fff' }}>
-            <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 72, alignItems: 'center' }}>
+            <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 72, alignItems: 'center' }}>
               <div style={{ position: 'relative' }}>
                 <div style={{ borderRadius: 8, overflow: 'hidden', boxShadow: '0 16px 40px rgba(21,34,56,0.14)' }}>
                   <img
                     src={assemblyPhoto}
                     alt="Asamblea de pastores de CIPEDIL"
-                    style={{ width: '100%', height: 380, objectFit: 'cover', display: 'block' }}
+                    style={{ width: '100%', height: 'clamp(240px, 42vw, 380px)', objectFit: 'cover', display: 'block' }}
                   />
                 </div>
                 <div style={{
-                  position: 'absolute', bottom: -24, right: -24,
+                  position: 'absolute', bottom: -20, right: '4%',
                   background: C.blue, color: '#fff',
                   borderRadius: 6, padding: '18px 24px',
                   boxShadow: '0 8px 24px rgba(16,147,206,0.35)',
@@ -953,7 +953,7 @@ export default function App() {
                 </h2>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 24 }}>
                 <div style={{ borderRadius: 8, overflow: 'hidden', border: `1px solid ${C.border}` }}>
                   <div style={{ background: C.blue, padding: '22px 30px', display: 'flex', alignItems: 'center', gap: 14 }}>
                     <Target size={24} color="#fff" strokeWidth={1.75} />
@@ -986,9 +986,9 @@ export default function App() {
               }}>
                 <Quote size={26} color={C.yellow} style={{ marginBottom: 14 }} />
                 <p style={{ fontFamily: 'Montserrat, sans-serif', fontStyle: 'italic', fontSize: 'clamp(16px, 2vw, 20px)', color: '#fff', lineHeight: 1.7, margin: '0 0 14px' }}>
-                  "Cuán bueno y cuán agradable es que los hermanos habiten juntos en armonía."
+                  "Solícitos en guardar la unidad del Espíritu en el vínculo de la paz; ... un Señor, una fe, un bautismo, un Dios y Padre de todos ..."
                 </p>
-                <div style={{ fontWeight: 700, fontSize: 12.5, color: 'rgba(255,255,255,0.65)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Salmos 133:1</div>
+                <div style={{ fontWeight: 700, fontSize: 12.5, color: 'rgba(255,255,255,0.65)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Efesios 4:3-6</div>
               </div>
             </div>
           </section>
@@ -1143,7 +1143,7 @@ export default function App() {
                 </p>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.3fr', gap: 56, alignItems: 'start' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 56, alignItems: 'start' }}>
                 <div>
                   <img src={logoImg} alt="CIPEDIL" style={{ height: 60, objectFit: 'contain', marginBottom: 28 }} />
                   <p style={{ color: C.slate, lineHeight: 1.8, marginBottom: 28, fontSize: 15 }}>
@@ -1175,7 +1175,7 @@ export default function App() {
                   <h3 style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: 18, color: C.navy, marginBottom: 24 }}>
                     Solicitar información
                   </h3>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 16, marginBottom: 16 }}>
                     {[
                       { label: 'Nombre completo', type: 'text', placeholder: 'Pastor Juan López' },
                       { label: 'Teléfono', type: 'tel', placeholder: '+51 999 123 456' },
@@ -1247,7 +1247,7 @@ export default function App() {
       {/* ── FOOTER ──────────────────────────────────────────────── */}
       <footer style={{ background: C.navy, padding: '48px 24px 0' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: 48, marginBottom: 40, flexWrap: 'wrap' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 48, marginBottom: 40 }}>
             <div>
               <div style={{ background: '#fff', borderRadius: 8, padding: '10px 16px', display: 'inline-block', marginBottom: 16 }}>
                 <img src={logoImg} alt="CIPEDIL" style={{ height: 40, objectFit: 'contain', display: 'block' }} />
