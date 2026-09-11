@@ -151,16 +151,6 @@ const BENEFITS: { Icon: LucideIcon; title: string; desc: string; color: string; 
   { Icon: ShieldCheck, title: 'Unidad Práctica', desc: 'Promovemos la unidad visible de la iglesia en el distrito, fortaleciendo el testimonio cristiano.', color: C.yellow, tint: C.yellowLt },
 ]
 
-// Central board — district-wide leadership.
-const DIRECTIVA_CENTRAL = [
-  { nombre: 'Carlos Mendoza Ríos', cargo: 'Presidente', iglesia: 'Iglesia Evangélica Emmanuel' },
-  { nombre: 'Roberto Huanca Flores', cargo: 'Vicepresidente', iglesia: 'Iglesia Pentecostal Bethel' },
-  { nombre: 'Miguel Ángel Torres', cargo: 'Secretario General', iglesia: 'Iglesia Bautista Gracia y Verdad' },
-  { nombre: 'Samuel Quispe Mamani', cargo: 'Tesorero', iglesia: 'Iglesia Adventista del Séptimo Día' },
-  { nombre: 'Gloria Sánchez Vega', cargo: 'Secretaria de Actas', iglesia: 'Iglesia de Dios del Evangelio Completo' },
-  { nombre: 'Juan Pablo Ccoa', cargo: 'Vocal', iglesia: 'Iglesia Presbiteriana Shalom' },
-]
-
 // Geographic sectors of San Juan de Lurigancho, each with its own local
 // board. Boundaries and names are illustrative placeholders — swap in the
 // district's official zonas/comunas once the reference map is available.
@@ -243,11 +233,6 @@ const ALLIES = [
 ]
 
 // ── helpers ─────────────────────────────────────────────────────────
-function initials(name: string) {
-  const parts = name.split(' ').filter(Boolean)
-  return ((parts[0]?.[0] ?? '') + (parts[1]?.[0] ?? '')).toUpperCase()
-}
-
 function polarToCartesian(cx: number, cy: number, r: number, angleDeg: number) {
   const rad = ((angleDeg - 90) * Math.PI) / 180
   return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) }
@@ -260,41 +245,6 @@ function wedgePath(cx: number, cy: number, rOuter: number, rInner: number, start
   const ei = polarToCartesian(cx, cy, rInner, startAngle)
   const largeArc = endAngle - startAngle <= 180 ? 0 : 1
   return `M ${so.x} ${so.y} A ${rOuter} ${rOuter} 0 ${largeArc} 0 ${eo.x} ${eo.y} L ${ei.x} ${ei.y} A ${rInner} ${rInner} 0 ${largeArc} 1 ${si.x} ${si.y} Z`
-}
-
-// Small person card shared by the central board and the sector boards.
-function PersonCard({ nombre, cargo, iglesia, size = 'md' }: { nombre: string; cargo: string; iglesia: string; size?: 'md' | 'sm' }) {
-  const avatar = size === 'md' ? 84 : 56
-  return (
-    <div
-      style={{
-        display: 'flex', alignItems: 'flex-start', gap: size === 'md' ? 18 : 14,
-        background: '#fff', border: `1px solid ${C.border}`, borderRadius: 10,
-        padding: size === 'md' ? '20px 22px' : '14px 16px',
-      }}
-    >
-      <div style={{
-        width: avatar, height: avatar, borderRadius: '50%', flexShrink: 0,
-        background: C.blue, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',
-        fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: size === 'md' ? 26 : 17,
-        letterSpacing: '0.02em',
-      }}>
-        {initials(nombre)}
-      </div>
-      <div style={{ minWidth: 0 }}>
-        <div style={{
-          display: 'inline-block', color: C.blue, fontSize: 11, fontWeight: 700,
-          letterSpacing: '0.07em', textTransform: 'uppercase', marginBottom: 4,
-        }}>
-          {cargo}
-        </div>
-        <h3 style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: size === 'md' ? 16 : 14.5, color: C.navy, margin: '0 0 4px' }}>
-          {nombre}
-        </h3>
-        <div style={{ color: C.muted, fontSize: size === 'md' ? 13 : 12.5, lineHeight: 1.5 }}>{iglesia}</div>
-      </div>
-    </div>
-  )
 }
 
 // Section eyebrow label — plain typographic mark, no icon.
@@ -610,17 +560,47 @@ export default function App() {
 
             {/* Detail panel — central board by default, or the selected sector */}
             {activeSector === null ? (
-              <div ref={sectorPanelRef} style={{ border: `1.5px solid ${C.border}`, borderRadius: 14, padding: '28px 28px 32px', background: C.light }}>
-                <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 20, flexWrap: 'wrap', gap: 8 }}>
-                  <h2 style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: 22, color: C.navy, margin: 0 }}>
-                    Junta Directiva Central
-                  </h2>
-                  <span style={{ fontSize: 12.5, color: C.muted }}>Período 2025 – 2027 · Todo el distrito</span>
+              <div
+                ref={sectorPanelRef}
+                style={{
+                  border: `1.5px solid ${C.navy}`,
+                  borderRadius: 14, padding: '28px 28px 32px',
+                  background: C.blueLt,
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14, flexWrap: 'wrap', justifyContent: 'space-between', marginBottom: 14 }}>
+                  <div>
+                    <span style={{
+                      display: 'inline-flex', alignItems: 'center', gap: 6,
+                      fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: 11.5,
+                      color: C.navy, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 6,
+                    }}>
+                      <MapPin size={14} color={C.navy} strokeWidth={2.25} />
+                      Todo el distrito
+                    </span>
+                    <h2 style={{ fontFamily: 'Montserrat, sans-serif', fontWeight: 700, fontSize: 24, color: C.navy, margin: 0 }}>
+                      Junta Directiva Central
+                    </h2>
+                  </div>
+                  <span style={{ fontSize: 12.5, color: C.muted, whiteSpace: 'nowrap' }}>Período 2025 – 2027</span>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 16 }}>
-                  {DIRECTIVA_CENTRAL.map((m, i) => (
-                    <PersonCard key={i} nombre={m.nombre} cargo={m.cargo} iglesia={m.iglesia} />
-                  ))}
+
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 20, alignItems: 'stretch' }}>
+                  <div style={{
+                    flex: '1 1 280px', minHeight: 200, borderRadius: 10,
+                    background: '#fff', border: `1.5px dashed ${C.navy}`,
+                    display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8,
+                  }}>
+                    <Camera size={30} color={C.navy} strokeWidth={1.75} />
+                    <span style={{ fontSize: 12.5, color: C.muted, textAlign: 'center', padding: '0 16px' }}>
+                      Foto grupal de la junta directiva
+                    </span>
+                  </div>
+                  <div style={{ flex: '1.4 1 320px', display: 'flex', alignItems: 'center' }}>
+                    <p style={{ color: C.slate, fontSize: 14.5, lineHeight: 1.7, margin: 0 }}>
+                      La Junta Directiva Central conduce la confraternidad a nivel distrital, articula el trabajo conjunto de los seis sectores pastorales y vela por el cumplimiento de la misión y visión institucional de CIPEDIL.
+                    </p>
+                  </div>
                 </div>
               </div>
             ) : (() => {
@@ -1281,8 +1261,13 @@ export default function App() {
             <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12 }}>
               © {new Date().getFullYear()} CIPEDIL · San Juan de Lurigancho, Lima – Perú
             </div>
-            <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12 }}>
-              Unidos en la fe · Capacitados en la Palabra
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 4 }}>
+              <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12 }}>
+                Unidos en la fe · Capacitados en la Palabra
+              </div>
+              <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: 11 }}>
+                Desarrollado por BPE
+              </div>
             </div>
           </div>
         </div>
